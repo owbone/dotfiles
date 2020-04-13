@@ -19,7 +19,6 @@ Plug 'rust-lang/rust.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-go', { 'do': 'make' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-surround'
@@ -90,11 +89,9 @@ endif
         \ }
 
 " Deoplete configuration
-    let g:deoplete#complete_method='omnifunc'
-
-    " Go configuration
-    let g:deoplete#sources#go#gocode_binary='~/workspace/bin/gocode' " Recommended for speed
-    let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+    call deoplete#custom#option('omni_patterns', {
+    \ 'go': '[^. *\t]\.\w*',
+    \})
 
     " Tab completion
     inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
