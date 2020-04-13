@@ -1,12 +1,8 @@
 # .zshenv is always sourced, define here exported variables that should
 # be available to other programs.
 
-export EDITOR=nano
-export PAGER=more
-
-export PATH=$PATH:~/bin:/usr/local/bin
-
-# load zsh config files
+export EDITOR=nvim
+export PAGER=less
 
 env_config_files=(~/.zsh/**/*.zshenv(N))
 if test ! -z "$env_config_files" ;
@@ -16,5 +12,3 @@ if test ! -z "$env_config_files" ;
       source $file
     done
 fi
-
-export TERM="xterm-256color"
