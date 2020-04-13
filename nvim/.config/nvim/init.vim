@@ -16,6 +16,7 @@ Plug 'LnL7/vim-nix'
 Plug 'majutsushi/tagbar'
 Plug 'nvie/vim-flake8'
 Plug 'rust-lang/rust.vim'
+Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-go', { 'do': 'make' }
@@ -73,6 +74,20 @@ endif
 
     map <leader>g :YcmCompleter GoToDefinitionElseDeclaration
     map <C-n> :NERDTreeToggle<CR>
+
+" NERDTree configuration
+    let g:NERDTreeIndicatorMapCustom = {
+        \ "Modified"  : "◇",
+        \ "Staged"    : "◈",
+        \ "Untracked" : "○",
+        \ "Renamed"   : "➜",
+        \ "Unmerged"  : "═",
+        \ "Deleted"   : "⨯",
+        \ "Dirty"     : "∗",
+        \ "Clean"     : "∙",
+        \ 'Ignored'   : "◌",
+        \ "Unknown"   : "?"
+        \ }
 
 " Deoplete configuration
     let g:deoplete#complete_method='omnifunc'
