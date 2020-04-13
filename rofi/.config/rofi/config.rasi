@@ -1,9 +1,9 @@
 
 configuration {
- modi: "window,drun,run,ssh,combi,find:~/.config/rofi/finder.sh";
+ modi: "window,drun,run,ssh,combi,find:~/.config/rofi/finder.sh,power:~/.config/rofi/power.sh";
  theme: "/usr/share/rofi/themes/Adapta-Nokto.rasi";
  font: "mono 12";
- combi-modi: "window,drun,run,ssh,find";
+ combi-modi: "window,drun,run,ssh,find,power";
 
 /*	width: 50;*/
 /*	lines: 15;*/
