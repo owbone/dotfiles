@@ -58,9 +58,6 @@ endif
     let g:molokai_original=0
     colorscheme molokai
 
-    " Transparent background (i.e. match terminal background).
-    hi Normal guibg=NONE ctermbg=NONE
-
 " Custom key mappings
     let mapleader=","
 
@@ -206,48 +203,30 @@ endif
     let g:syntastic_check_on_wq = 0
 
 " Airline configuration
-    let g:airline_theme='deus'
+    let g:airline_theme='molokai'
     let g:tmuxline_powerline_separators=1
     let g:airline_powerline_fonts=1
-    let g:Powerline_symbols='unicode'
+    let g:Powerline_symbols='fancy'
     let g:airline_enable_branch=1
     let g:airline#extensions#tmuxline#enabled=1
     let g:airline#extensions#tabline#enabled=1
     let g:airline#extensions#tabline#show_buffers=1
 
+    " air-line
+    let g:airline_powerline_fonts = 1
+
     if !exists('g:airline_symbols')
         let g:airline_symbols = {}
     endif
 
-    " unicode symbols
-    let g:airline_left_sep = '»'
-    let g:airline_left_sep = '▶'
-    let g:airline_right_sep = '«'
-    let g:airline_right_sep = '◀'
-    let g:airline_symbols.crypt = '🔒'
-    let g:airline_symbols.linenr = '☰'
-    let g:airline_symbols.linenr = '␊'
-    let g:airline_symbols.linenr = '␤'
-    let g:airline_symbols.linenr = '¶'
-    let g:airline_symbols.maxlinenr = ''
-    let g:airline_symbols.maxlinenr = '㏑'
-    let g:airline_symbols.branch = '⎇'
-    let g:airline_symbols.paste = 'ρ'
-    let g:airline_symbols.paste = 'Þ'
-    let g:airline_symbols.paste = '∥'
-    let g:airline_symbols.spell = 'Ꞩ'
-    let g:airline_symbols.notexists = '∄'
-    let g:airline_symbols.whitespace = 'Ξ'
-
-    " powerline symbols
+    " airline symbols
     let g:airline_left_sep = ''
     let g:airline_left_alt_sep = ''
     let g:airline_right_sep = ''
     let g:airline_right_alt_sep = ''
     let g:airline_symbols.branch = ''
     let g:airline_symbols.readonly = ''
-    let g:airline_symbols.linenr = '☰'
-    let g:airline_symbols.maxlinenr = ''
+    let g:airline_symbols.linenr = ''
 
 " Go configuration
     " vim-go configuration
