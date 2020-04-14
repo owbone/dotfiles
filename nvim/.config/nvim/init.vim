@@ -11,7 +11,6 @@ Plug 'garyburd/go-explorer'
 Plug 'git://git.wincent.com/command-t.git'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'jodosha/vim-godebug'
-Plug 'kien/ctrlp.vim'
 Plug 'LnL7/vim-nix'
 Plug 'majutsushi/tagbar'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
@@ -74,6 +73,8 @@ endif
 " coc.nvim configuration
     set shortmess+=c
 
+    let g:coc_global_extensions = ['coc-lists', 'coc-tabnine']
+
     inoremap <silent><expr> <TAB>
           \ pumvisible() ? "\<C-n>" :
           \ <SID>check_back_space() ? "\<TAB>" :
@@ -126,6 +127,12 @@ endif
     " Formatting selected code.
     xmap <leader>f  <Plug>(coc-format-selected)
     nmap <leader>f  <Plug>(coc-format-selected)
+
+    " Fuzzy finders
+    nmap <leader>lo :CocList --normal -A outline<CR>
+    nmap <leader>ls :CocList --normal -A --interactive symbols<CR>
+    nmap <leader>lf :CocList --normal -A files<CR>
+    nmap <leader>ll :CocList --normal -A --interactive lines<CR>
 
     augroup mygroup
       autocmd!
