@@ -14,11 +14,11 @@ Plug 'jodosha/vim-godebug'
 Plug 'kien/ctrlp.vim'
 Plug 'LnL7/vim-nix'
 Plug 'majutsushi/tagbar'
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'nvie/vim-flake8'
 Plug 'rust-lang/rust.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-surround'
@@ -71,8 +71,109 @@ endif
     inoremap <C-l> <Right>
     inoremap <C-j> <C-o>gj
 
-    map <leader>g :YcmCompleter GoToDefinitionElseDeclaration
+" NERDTree configuration
     map <C-n> :NERDTreeToggle<CR>
+
+" coc.nvim configuration
+    set shortmess+=c
+
+    inoremap <silent><expr> <TAB>
+          \ pumvisible() ? "\<C-n>" :
+          \ <SID>check_back_space() ? "\<TAB>" :
+          \ coc#refresh()
+    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+    function! s:check_back_space() abort
+      let col = col('.') - 1
+      return !col || getline('.')[col - 1]  =~# '\s'
+    endfunction
+
+    " Use <c-space> to trigger completion.
+    inoremap <silent><expr> <c-space> coc#refresh()
+
+    " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+    " position. Coc only does snippet and additional edit on confirm.
+    if exists('*complete_info')
+      inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+    else
+      imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+    endif
+
+    " Use `[g` and `]g` to navigate diagnostics
+    nmap <silent> [g <Plug>(coc-diagnostic-prev)
+    nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+    " GoTo code navigation.
+    nmap <silent> gd <Plug>(coc-definition)
+    nmap <silent> gy <Plug>(coc-type-definition)
+    nmap <silent> gi <Plug>(coc-implementation)
+    nmap <silent> gr <Plug>(coc-references)
+
+    " Use K to show documentation in preview window.
+    nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+    function! s:show_documentation()
+      if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+      else
+        call CocAction('doHover')
+      endif
+    endfunction
+
+    " Highlight the symbol and its references when holding the cursor.
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+
+    " Symbol renaming.
+    nmap <leader>rn <Plug>(coc-rename)
+
+    " Formatting selected code.
+    xmap <leader>f  <Plug>(coc-format-selected)
+    nmap <leader>f  <Plug>(coc-format-selected)
+
+    augroup mygroup
+      autocmd!
+      " Setup formatexpr specified filetype(s).
+      autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+      " Update signature help on jump placeholder.
+      autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+    augroup end
+
+    " Applying codeAction to the selected region.
+    " Example: `<leader>aap` for current paragraph
+    xmap <leader>a  <Plug>(coc-codeaction-selected)
+    nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+    " Remap keys for applying codeAction to the current line.
+    nmap <leader>ac  <Plug>(coc-codeaction)
+    " Apply AutoFix to problem on the current line.
+    nmap <leader>qf  <Plug>(coc-fix-current)
+
+    " Introduce function text object
+    " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+    xmap if <Plug>(coc-funcobj-i)
+    xmap af <Plug>(coc-funcobj-a)
+    omap if <Plug>(coc-funcobj-i)
+    omap af <Plug>(coc-funcobj-a)
+
+    " Use <TAB> for selections ranges.
+    " NOTE: Requires 'textDocument/selectionRange' support from the language server.
+    " coc-tsserver, coc-python are the examples of servers that support it.
+    nmap <silent> <TAB> <Plug>(coc-range-select)
+    xmap <silent> <TAB> <Plug>(coc-range-select)
+
+    " Add `:Format` command to format current buffer.
+    command! -nargs=0 Format :call CocAction('format')
+
+    " Add `:Fold` command to fold current buffer.
+    command! -nargs=? Fold :call CocAction('fold', <f-args>)
+
+    " Add `:OR` command for organize imports of the current buffer.
+    command! -nargs=0 OR   :call CocAction('runCommand', 'editor.action.organizeImport')
+
+    " Add (Neo)Vim's native statusline support.
+    " NOTE: Please see `:h coc-status` for integrations with external plugins that
+    " provide custom statusline: lightline.vim, vim-airline.
+    set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " NERDTree configuration
     let g:NERDTreeIndicatorMapCustom = {
@@ -87,14 +188,6 @@ endif
         \ 'Ignored'   : "◌",
         \ "Unknown"   : "?"
         \ }
-
-" Deoplete configuration
-    call deoplete#custom#option('omni_patterns', {
-    \ 'go': '[^. *\t]\.\w*',
-    \})
-
-    " Tab completion
-    inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 " NERDTree configuration
     autocmd StdinReadPre * let s:std_in=1
@@ -175,21 +268,11 @@ endif
     let g:go_term_enabled=1
     let g:go_term_mode="vsplit"
 
-    " Use deoplete for autocompletion
-    autocmd FileType go call deoplete#enable()
-
     " Go visual configuration
     autocmd FileType go setlocal cc=80
 
-    " Go key mappings
-    autocmd FileType go nmap <leader>gd <Plug>(go-doc)
-    autocmd FileType go nmap <leader>gt <Plug>(go-test)
-    autocmd FileType go nmap <leader>gb <Plug>(go-build)
-    autocmd FileType go nmap <leader>gc <Plug>(go-coverage-toggle)
-    autocmd FileType go nmap <leader>gi <Plug>(go-info)
-
 " Python configuration
-	let python_highlight_all=1
+    let python_highlight_all=1
 
 " Highlight extra whitespace
     highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
