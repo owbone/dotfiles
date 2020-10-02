@@ -21,11 +21,11 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree', { 'do': ':UpdateRemotePlugins' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/indentpython.vim'
-Plug 'vim-syntastic/syntastic'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 call plug#end()
 
@@ -74,7 +74,7 @@ endif
 " coc.nvim configuration
     set shortmess+=c
 
-    let g:coc_global_extensions = ['coc-lists', 'coc-tabnine']
+    let g:coc_global_extensions = ['coc-lists', 'coc-tabnine', 'coc-java', 'coc-go']
 
     inoremap <silent><expr> <TAB>
           \ pumvisible() ? "\<C-n>" :
@@ -130,6 +130,7 @@ endif
     nmap <leader>f  <Plug>(coc-format-selected)
 
     " Fuzzy finders
+    nmap <C-p> :CocList files<CR>
     nmap <leader>lo :CocList --normal -A outline<CR>
     nmap <leader>ls :CocList --normal -A --interactive symbols<CR>
     nmap <leader>lf :CocList --normal -A files<CR>
@@ -201,15 +202,6 @@ endif
 " Buffergator configuration
     let g:buffergator_viewport_split_policy = "T"
 
-" Syntastic configuration
-    set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
-    set statusline+=%*
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_auto_loc_list = 1
-    let g:syntastic_check_on_open = 1
-    let g:syntastic_check_on_wq = 0
-
 " Airline configuration
     let g:airline_theme='molokai'
     let g:tmuxline_powerline_separators=1
@@ -238,9 +230,6 @@ endif
 
 " Go configuration
     " vim-go configuration
-    let g:go_metalinter_autosave=1
-    let g:go_metalinter_autosave_enabled=['vet', 'golint']
-    let g:go_metalinter_deadline="5s"
     let g:go_fmt_command="goimports"
     let g:go_fmt_fail_silently=0
     let g:go_highlight_types=1

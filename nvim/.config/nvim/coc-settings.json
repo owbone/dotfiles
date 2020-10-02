@@ -15,5 +15,11 @@
   "list.insertMappings": {
     "<C-t>": "action:tabe",
     "<C-w>": "command:wincmd k"
-  }
+  },
+  "list.source.files.excludePatterns": [
+    "**/.git/*",
+    "bin/*",
+    "**/*.class"
+  ],
+  "java.errors.incompleteClasspath.severity": "ignore"
 }
