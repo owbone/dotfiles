@@ -74,7 +74,7 @@ endif
 " coc.nvim configuration
     set shortmess+=c
 
-    let g:coc_global_extensions = ['coc-lists', 'coc-tabnine', 'coc-java', 'coc-go']
+    let g:coc_global_extensions = ['coc-lists', 'coc-tabnine', 'coc-java', 'coc-go', 'coc-tsserver']
 
     inoremap <silent><expr> <TAB>
           \ pumvisible() ? "\<C-n>" :
